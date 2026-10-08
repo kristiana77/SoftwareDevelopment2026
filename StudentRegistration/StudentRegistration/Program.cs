@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +26,11 @@ namespace StudentRegistration
 
 
             //zadacha3
-            
+            Console.Write("Среден успех: ");
+            double grade;
+            while (!double.TryParse(Console.ReadLine(), out grade))
+            { Console.Write("Среден успех: "); Console.WriteLine("Невалиден успех."); }
+            Console.WriteLine($"Среден успех: {grade}");
 
 
         }
