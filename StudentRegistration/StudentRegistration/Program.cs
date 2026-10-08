@@ -12,22 +12,20 @@ namespace StudentRegistration
         {
             //задача1
             Console.Write("Възраст: ");
-
-            if (int.TryParse(Console.ReadLine(), out int age)) { Console.WriteLine($"Възраст: {age}"); }
-            else
-            {
-                Console.WriteLine("Невалидна възраст.");
-
-            }
+            int age;
+            while(!int.TryParse(Console.ReadLine(), out age)) 
+            { Console.Write("Възраст: "); Console.WriteLine("Невалидна възраст.");}
+            Console.WriteLine($"Възраст: {age}"); 
 
             //zadacha2
             Console.Write("Kлас: ");
-
-            if (byte.TryParse(Console.ReadLine(), out byte clas)) { Console.WriteLine($"Клас: {clas}"); }
+            byte clas;
+            if (byte.TryParse(Console.ReadLine(), out clas)) { Console.Write("Kлас: "); Console.WriteLine($"Клас: {clas}"); }
             Console.WriteLine("Невалиден клас.");
 
 
-
+            //zadacha3
+            
 
 
         }
