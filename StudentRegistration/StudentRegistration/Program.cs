@@ -10,6 +10,7 @@ namespace StudentRegistration
     {
         static void Main(string[] args)
         {
+            //задача1
             Console.Write("Възраст: ");
 
             if (int.TryParse(Console.ReadLine(), out int age)) { Console.WriteLine($"Възраст: {age}"); }
@@ -18,6 +19,13 @@ namespace StudentRegistration
                 Console.WriteLine("Невалидна възраст.");
 
             }
+
+
+
+
+
+
+
 
         }
     }
