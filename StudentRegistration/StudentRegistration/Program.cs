@@ -20,8 +20,8 @@ namespace StudentRegistration
             //zadacha2
             Console.Write("Kлас: ");
             byte clas;
-            if (byte.TryParse(Console.ReadLine(), out clas)) { Console.Write("Kлас: "); Console.WriteLine($"Клас: {clas}"); }
-            Console.WriteLine("Невалиден клас.");
+            while (!byte.TryParse(Console.ReadLine(), out clas)) {Console.Write("Kлас: "); Console.WriteLine("Невалиден клас."); }
+            Console.WriteLine($"Клас: {clas}");
 
 
             //zadacha3
