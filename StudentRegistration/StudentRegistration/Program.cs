@@ -40,6 +40,16 @@ namespace StudentRegistration
             { Console.Write("Такса: "); Console.WriteLine("Невалидна такса."); }
             Console.WriteLine($"Такса: {tax}");
 
+
+            //zadacha5
+            Console.Write("Има ли стипендия: ");
+            bool scholarship;
+            if (bool.TryParse(Console.ReadLine(), out scholarship))
+            { Console.WriteLine("Да."); }
+            else Console.WriteLine("Не.");
+
+
+
         }
     }
 }
