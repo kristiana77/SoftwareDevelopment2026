@@ -270,8 +270,28 @@ namespace StudentSchool
             }
         }
 
-
-
-
+        static void ReadValidBirthDate(Student student)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write("Въведете дата на раждане (напр. 14.05.2009): ");
+                    if (!DateTime.TryParse(Console.ReadLine(), out DateTime birthDate))
+                    {
+                        throw new FormatException("Невалиден формат за дата.");
+                    }
+                    student.BirthDate = birthDate;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                }
+            }
+        }
     }
 }
+
+
+    
