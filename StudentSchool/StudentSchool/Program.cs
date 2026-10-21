@@ -76,7 +76,43 @@ namespace StudentSchool
             student.PrintInfo();
         }
 
+        static void CheckStudent()
+        {
+            Console.WriteLine("\n--- ПРОВЕРКА НА УЧЕНИК ---");
+            Console.Write("Въведете име или ID на ученика: ");
+            string searchInput = Console.ReadLine();
 
+            bool found = false;
+            for (int i = 0; i < students.Count; i++)
+            {
+                if (students[i].Id.ToString() == searchInput || students[i].Name.ToLower() == searchInput.ToLower())
+                {
+                    Console.WriteLine("\nНамерено съвпадение:");
+                    students[i].PrintInfo();
+                    found = true;
+                }
+            }
+
+            if (!found)
+            {
+                Console.WriteLine("Не е намерен ученик по въведените критерии.\n");
+            }
+        }
+
+        static void ShowAllStudents()
+        {
+            Console.WriteLine("\n--- СПИСЪК С ВСИЧКИ УЧЕНИЦИ ---");
+            if (students.Count == 0)
+            {
+                Console.WriteLine("Няма налични ученици в системата.\n");
+                return;
+            }
+
+            for (int i = 0; i < students.Count; i++)
+            {
+                students[i].PrintInfo();
+            }
+        }
 
 
 
