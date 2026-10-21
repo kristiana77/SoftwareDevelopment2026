@@ -135,5 +135,28 @@ namespace StudentSchool
             }
         }
 
+        static void ReadValidAge(Student student)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write("Въведете възраст: ");
+                    if (!int.TryParse(Console.ReadLine(), out int age))
+                    {
+                        throw new FormatException("Невалиден формат за цяло число.");
+                    }
+                    student.Age = age; // Сетърът в Student хвърля ArgumentOutOfRangeException при грешка
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                }
+            }
+        }
+
+
+
     }
 }
