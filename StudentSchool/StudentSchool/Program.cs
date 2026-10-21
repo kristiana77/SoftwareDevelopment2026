@@ -114,7 +114,26 @@ namespace StudentSchool
             }
         }
 
-
+        static string ReadValidName()
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write("Въведете име на ученика: ");
+                    string name = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(name))
+                    {
+                        throw new ArgumentException("Името не може да бъде празно или само интервали.");
+                    }
+                    return name;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                }
+            }
+        }
 
     }
 }
