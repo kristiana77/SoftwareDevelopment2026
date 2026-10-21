@@ -49,6 +49,36 @@ namespace StudentSchool
                 }
 
             }
-        }        
+        }
+
+        static void AddNewStudent()
+        {
+            Console.WriteLine("\n--- ДОБАВЯНЕ НА НОВ УЧЕНИК ---");
+
+            int currentId = nextId++;
+            string name = ReadValidName();
+
+            // Създаваме обекта с валидни ID и име
+            Student student = new Student(currentId, name);
+
+            // Всички останали свойства се задават през методи, които хвърлят изключение 
+            // при грешка и я прихващат, докато стойността не се запише успешно в обекта.
+            ReadValidAge(student);
+            ReadValidGrade(student);
+            ReadValidAverageScore(student);
+            ReadValidFee(student);
+            ReadValidHasScholarship(student);
+            ReadValidClassLetter(student);
+            ReadValidBirthDate(student);
+
+            students.Add(student);
+            Console.WriteLine("\nУченикът е добавен успешно!");
+            student.PrintInfo();
+        }
+
+
+
+
+
     }
 }
