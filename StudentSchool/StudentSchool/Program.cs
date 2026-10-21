@@ -219,7 +219,34 @@ namespace StudentSchool
             }
         }
 
-
+        static void ReadValidHasScholarship(Student student)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write("Получава ли стипендия (да/не): ");
+                    string input = Console.ReadLine().Trim().ToLower();
+                    if (input == "да" || input == "true" || input == "1")
+                    {
+                        student.HasScholarship = true;
+                    }
+                    else if (input == "не" || input == "false" || input == "0")
+                    {
+                        student.HasScholarship = false;
+                    }
+                    else
+                    {
+                        throw new FormatException("Моля, въведете 'да' или 'не'.");
+                    }
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                }
+            }
+        }
 
 
 
