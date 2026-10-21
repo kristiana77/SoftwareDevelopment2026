@@ -156,6 +156,28 @@ namespace StudentSchool
             }
         }
 
+        static void ReadValidGrade(Student student)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write("Въведете клас (1-12): ");
+                    if (!int.TryParse(Console.ReadLine(), out int grade))
+                    {
+                        throw new FormatException("Невалиден формат за цяло число.");
+                    }
+                    student.Grade = grade;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                }
+            }
+        }
+
+
 
 
     }
