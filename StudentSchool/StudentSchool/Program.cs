@@ -248,6 +248,28 @@ namespace StudentSchool
             }
         }
 
+        static void ReadValidClassLetter(Student student)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write("Въведете паралелка (буква): ");
+                    string input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input) || input.Length != 1)
+                    {
+                        throw new ArgumentException("Паралелката трябва да бъде точно един символ.");
+                    }
+                    student.ClassLetter = input[0];
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                }
+            }
+        }
+
 
 
 
