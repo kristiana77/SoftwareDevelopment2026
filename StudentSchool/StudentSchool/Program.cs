@@ -58,11 +58,10 @@ namespace StudentSchool
             int currentId = nextId++;
             string name = ReadValidName();
 
-            // Създаваме обекта с валидни ID и име
+        
             Student student = new Student(currentId, name);
 
-            // Всички останали свойства се задават през методи, които хвърлят изключение 
-            // при грешка и я прихващат, докато стойността не се запише успешно в обекта.
+
             ReadValidAge(student);
             ReadValidGrade(student);
             ReadValidAverageScore(student);
@@ -146,7 +145,7 @@ namespace StudentSchool
                     {
                         throw new FormatException("Невалиден формат за цяло число.");
                     }
-                    student.Age = age; // Сетърът в Student хвърля ArgumentOutOfRangeException при грешка
+                    student.Age = age;
                     break;
                 }
                 catch (Exception ex)
