@@ -138,6 +138,7 @@ namespace StudentSchool
 
         public void PrintInfo()
         {
+            Console.WriteLine("=== ДАННИ ЗА УЧЕНИК ===");
             Console.WriteLine($"Id: {Id}");
             Console.WriteLine($"Име: {Name}");
             Console.WriteLine($"Възраст: {Age}");
