@@ -71,7 +71,7 @@ namespace StudentSchool
             }
         }
 
-        public double AvarageScore
+        public double AverageScore
         {
             get { return avarageScore; }
             set
@@ -143,7 +143,7 @@ namespace StudentSchool
             Console.WriteLine($"Име: {Name}");
             Console.WriteLine($"Възраст: {Age}");
             Console.WriteLine($"Клас: {Grade}");
-            Console.WriteLine($"Среден успех: {AvarageScore:F2}");
+            Console.WriteLine($"Среден успех: {AverageScore:F2}");
             Console.WriteLine($"Такса: {Fee:C}");
             Console.WriteLine($"Стипендия: {(HasScholarship ? "Да" : "Не")}");
             Console.WriteLine($"Паралелка: {ClassLetter}");

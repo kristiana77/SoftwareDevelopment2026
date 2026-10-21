@@ -177,7 +177,26 @@ namespace StudentSchool
             }
         }
 
-
+        static void ReadValidAverageScore(Student student)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write("Въведете среден успех: ");
+                    if (!double.TryParse(Console.ReadLine(), out double score))
+                    {
+                        throw new FormatException("Невалиден формат за число.");
+                    }
+                    student.AverageScore = score;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                }
+            }
+        }
 
 
     }
