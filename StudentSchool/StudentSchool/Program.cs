@@ -198,6 +198,31 @@ namespace StudentSchool
             }
         }
 
+        static void ReadValidFee(Student student)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write("Въведете такса: ");
+                    if (!decimal.TryParse(Console.ReadLine(), out decimal fee))
+                    {
+                        throw new FormatException("Невалиден формат за число.");
+                    }
+                    student.Fee = fee;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                }
+            }
+        }
+
+
+
+
+
 
     }
 }
