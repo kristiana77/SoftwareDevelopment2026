@@ -10,8 +10,7 @@ namespace упражнение
 {
     internal class Program
     {
-        private readonly static List<TodoItem> tasks = new List<TodoItem>();
-        private static int nextId = 1;
+        
 
         static void Main(string[] args)
         {
@@ -73,9 +72,9 @@ namespace упражнение
                 Console.Write("Избери Id: ");
             }
 
-            TodoItem deleteTask = FindById(id);
+            //TodoItem deleteTask = FindById(id);
 
-            tasks.Remove(deleteTask);
+            //todos.Remove(deleteTask);
             Console.WriteLine("Задачата е изтрита.");
 
         }
@@ -95,8 +94,8 @@ namespace упражнение
                 Console.Write("Избери Id: ");
             }
 
-            TodoItem completedTask = FindById(id);
-            completedTask.Completed();
+            //TodoItem completedTask = FindById(id);
+            //completedTask.Completed();
             Console.WriteLine("Задачата е завършена.");
 
 
@@ -108,36 +107,19 @@ namespace упражнение
             Console.WriteLine();
             Console.WriteLine("===== Всички задачи  =======");
 
-            if (tasks.Count == 0)
+            if (todos.Count == 0)
             {
                 Console.WriteLine("Няма въведени задачи");
             }
             else
             {
-                foreach (TodoItem todoItem in tasks)
+                foreach (TodoItem todoItem in todos)
                 {
                     Console.WriteLine($"{todoItem}");
                 }
             }
         }
 
-        static TodoItem FindById(int id)
-        {
-            TodoItem targetTodo = null;
-            foreach (TodoItem todoItem in tasks)
-            {
-                if (todoItem.Id == id)
-                {
-                    targetTodo = todoItem;
-                    break;
-                }
-
-            }
-            if (targetTodo == null)
-                throw new ArgumentException("Няма задача с такова ID");
-
-            return targetTodo;
-        }
 
         private static void AddTodo()
         {
@@ -159,9 +141,6 @@ namespace упражнение
                 Console.Write("Краен срок: ");
             }
 
-            TodoItem todoItem = new TodoItem(nextId, title, description, dueDate);
-            tasks.Add(todoItem);
-            nextId++;
             Console.WriteLine("Задачата е добавена.");
 
         }
