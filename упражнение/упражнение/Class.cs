@@ -6,35 +6,81 @@ using System.Threading.Tasks;
 
 namespace упражнение
 {
-    internal class Class
+    internal class TodoItem
     {
-        public int Id { get; set; }
-        public string Zaglavie {  get; set; }
-        public string Opisanie { get; set; }
-        public int KraenSrok {  get; set; }
-        public bool Mark {  get; set; }
+        private string title;
+        private DateTime dueDate;
+        private bool isCompleted;
 
-        public Class(int id,string zaglavie, string opisanie, int kraenSrok)
+        public int Id { get; private set; }
+        public string Title
+        {
+            get
+            {
+                return title;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Заглавието е задължително");
+
+                title = value;
+            }
+        }
+        public string Description { get; set; }
+        public DateTime DueDate
+        {
+            get
+            {
+                return dueDate;
+            }
+            set
+            {
+                if (value < DateTime.Today)
+                    throw new ArgumentException("Крайната дата не трябва да е в миналото");
+
+                dueDate = value;
+            }
+        }
+        public bool IsCompleted
+        {
+            get
+            {
+                return isCompleted;
+            }
+            private set
+            {
+                isCompleted = value;
+            }
+        }
+
+        public TodoItem(int id, string title, string description, DateTime dueDate)
         {
             if (id <= 0)
-            {
-                throw new ArgumentOutOfRangeException("Id трябва да е положително");
-            }
-            if (string.IsNullOrEmpty(zaglavie))
-            {
-                throw new ArgumentNullException("Заглоавие е задължително");
-            }
+                throw new ArgumentOutOfRangeException(nameof(id), "Id трябва да е положително число");
+
             Id = id;
-            Zaglavie = zaglavie;
-            Opisanie = opisanie;
-            KraenSrok = kraenSrok;
-            Mark = false;
+            Title = title;
+            Description = description;
+            DueDate = dueDate;
+            IsCompleted = false;
+
+        }
+
+        public void Completed()
+        {
+            if (IsCompleted)
+                throw new InvalidOperationException(
+                    "Задачата вече е завършена.");
+
+            isCompleted = true;
         }
 
         public override string ToString()
         {
-            string status = Mark ? "[X] изпълнена" : "[ ] неизпълнена";
-            return $"{status} | Заглавие:{Zaglavie} | Описание:{Opisanie} | Краен срок:{KraenSrok} |";
+            var status = IsCompleted ? "Завършена" : "Незавършена";
+
+            return $"{Id}. {Title} | {Description} | {DueDate:d} | {status}";
         }
     }
 }
