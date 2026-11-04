@@ -17,6 +17,7 @@ namespace StudentSchool
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.InputEncoding = System.Text.Encoding.UTF8;
+            
 
             Console.WriteLine("=== РЕГИСТРАЦИЯ НА УЧЕНИЦИ ===");
             Console.WriteLine();
@@ -25,7 +26,7 @@ namespace StudentSchool
             while (running)
             {
                 Student student = null;
-
+                Console.WriteLine();
                
                 while (student == null)
                 {
@@ -174,23 +175,49 @@ namespace StudentSchool
 
                 Console.WriteLine("\nУченикът е записан успешно в списъка!\n");
 
-                Console.Write("Желаете ли да добавите още един ученик? (да/не): ");
-                string answer = Console.ReadLine()?.Trim().ToLower();
-                if (answer != "да" && answer != "da" && answer != "true")
+
+
+                Console.WriteLine("=== СПИСЪК С ВСИЧКИ РЕГИСТРИРАНИ УЧЕНИЦИ ===");
+
+                foreach (var s in students)
                 {
-                    running = false;
+                    Console.WriteLine();
+                    Console.WriteLine("=== ДАННИ ЗА УЧЕНИК ===");
+                    Console.WriteLine();
+                    Console.WriteLine($"Id: {s.Id}");
+                    Console.WriteLine($"Име: {s.Name}");
+                    Console.WriteLine($"Възраст: {s.Age}");
+                    Console.WriteLine($"Клас: {s.Grade}");
+                    Console.WriteLine($"Среден успех: {s.AverageScore.ToString("F2", CultureInfo.InvariantCulture)}");
+                    Console.WriteLine($"Такса: {s.Fee.ToString("F2", CultureInfo.InvariantCulture)} лв.");
+                    Console.WriteLine($"Стипендия: {(s.HasScholarship ? "Да" : "Не")}");
+                    Console.WriteLine($"Паралелка: {s.ClassLetter}");
+                    Console.WriteLine($"Дата на раждане: {s.BirthDate:dd.MM.yyyy}");
                 }
-                Console.WriteLine();
+
             }
 
             
-            Console.WriteLine("=== СПИСЪК С ВСИЧКИ РЕГИСТРИРАНИ УЧЕНИЦИ ===");
-            foreach (var s in students)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Id: {s.Id} | Име: {s.Name} | Възраст: {s.Age} | Клас: {s.Grade}-{s.ClassLetter} | Успех: {s.AverageScore:F2} | Такса: {s.Fee:F2} лв. | Стипендия: {(s.HasScholarship ? "Да" : "Не")} | Рожден ден: {s.BirthDate:dd.MM.yyyy}");
-            }
+            //Console.WriteLine("=== СПИСЪК С ВСИЧКИ РЕГИСТРИРАНИ УЧЕНИЦИ ===");
+
+            //foreach (var student in students)
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine("=== ДАННИ ЗА УЧЕНИК ===");
+            //    Console.WriteLine();
+            //    Console.WriteLine($"Id: {student.Id}");
+            //    Console.WriteLine($"Име: {student.Name}");
+            //    Console.WriteLine($"Възраст: {student.Age}");
+            //    Console.WriteLine($"Клас: {student.Grade}");
+            //    Console.WriteLine($"Среден успех: {student.AverageScore.ToString("F2", CultureInfo.InvariantCulture)}");
+            //    Console.WriteLine($"Такса: {student.Fee.ToString("F2", CultureInfo.InvariantCulture)} лв.");
+            //    Console.WriteLine($"Стипендия: {(student.HasScholarship ? "Да" : "Не")}");
+            //    Console.WriteLine($"Паралелка: {student.ClassLetter}");
+            //    Console.WriteLine($"Дата на раждане: {student.BirthDate:dd.MM.yyyy}");
+            //}
+
         }
+        
 
 
     }
