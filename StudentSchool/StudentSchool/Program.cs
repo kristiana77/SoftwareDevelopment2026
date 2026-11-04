@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,289 +9,192 @@ namespace StudentSchool
 {
     internal class Program
     {
-        static int nextId = 1;
-        static List<Student> students = new List<Student>();
+
+        private static int nextId = 1;
+        private static List<Student> students = new List<Student>();
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.InputEncoding = System.Text.Encoding.UTF8;
 
-            while (true)
+            Console.WriteLine("=== РЕГИСТРАЦИЯ НА УЧЕНИЦИ ===");
+            Console.WriteLine();
+
+            bool running = true;
+            while (running)
             {
-                Console.WriteLine("--- МЕНЮ УПРАВЛЕНИЕ НА УЧЕНИЦИ ---");
-                Console.WriteLine("1. Добавяне на нов ученик");
-                Console.WriteLine("2. Проверка на ученик");
-                Console.WriteLine("3. Справка за всички ученици");
-                Console.WriteLine("4. Изход");
-                Console.Write("Изберете опция (1-4): ");
+                Student student = null;
 
-                string choice = Console.ReadLine();
-
-                if (choice == "1")
+               
+                while (student == null)
                 {
-                    AddNewStudent();
-                }
-                else if (choice == "2")
-                {
-                    CheckStudent();
-                }
-                else if (choice == "3")
-                {
-                    ShowAllStudents();
-                }
-                else if (choice == "4")
-                {
-                    Console.WriteLine("Благодарим ви, че използвахте програмата. Приятен ден!");
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Невалиден избор. Моля, опитайте отново.");
-                }
+                    Console.Write("Име: ");
+                    string nameInput = Console.ReadLine();
 
-            }
-        }
-
-        static void AddNewStudent()
-        {
-            Console.WriteLine("\n--- ДОБАВЯНЕ НА НОВ УЧЕНИК ---");
-
-            int currentId = nextId++;
-            string name = ReadValidName();
-
-        
-            Student student = new Student(currentId, name);
-
-
-            ReadValidAge(student);
-            ReadValidGrade(student);
-            ReadValidAverageScore(student);
-            ReadValidFee(student);
-            ReadValidHasScholarship(student);
-            ReadValidClassLetter(student);
-            ReadValidBirthDate(student);
-
-            students.Add(student);
-            Console.WriteLine("\nУченикът е добавен успешно!");
-            student.PrintInfo();
-        }
-
-        static void CheckStudent()
-        {
-            Console.WriteLine("\n--- ПРОВЕРКА НА УЧЕНИК ---");
-            Console.Write("Въведете име или ID на ученика: ");
-            string searchInput = Console.ReadLine();
-
-            bool found = false;
-            for (int i = 0; i < students.Count; i++)
-            {
-                if (students[i].Id.ToString() == searchInput || students[i].Name.ToLower() == searchInput.ToLower())
-                {
-                    Console.WriteLine("\nНамерено съвпадение:");
-                    students[i].PrintInfo();
-                    found = true;
-                }
-            }
-
-            if (!found)
-            {
-                Console.WriteLine("Не е намерен ученик по въведените критерии.\n");
-            }
-        }
-
-        static void ShowAllStudents()
-        {
-            Console.WriteLine("\n--- СПИСЪК С ВСИЧКИ УЧЕНИЦИ ---");
-            if (students.Count == 0)
-            {
-                Console.WriteLine("Няма налични ученици в системата.\n");
-                return;
-            }
-
-            for (int i = 0; i < students.Count; i++)
-            {
-                students[i].PrintInfo();
-            }
-        }
-
-        static string ReadValidName()
-        {
-            while (true)
-            {
-                try
-                {
-                    Console.Write("Въведете име на ученика: ");
-                    string name = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(name))
+                    try
                     {
-                        throw new ArgumentException("Името не може да бъде празно или само интервали.");
+                        student = new Student(nextId, nameInput);
                     }
-                    return name;
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine($"Грешка: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
-                }
-            }
-        }
 
-        static void ReadValidAge(Student student)
-        {
-            while (true)
-            {
-                try
+                
+                while (true)
                 {
-                    Console.Write("Въведете възраст: ");
+                    Console.Write("Възраст: ");
                     if (!int.TryParse(Console.ReadLine(), out int age))
                     {
-                        throw new FormatException("Невалиден формат за цяло число.");
+                        Console.WriteLine("Моля, въведете цяло число.");
+                        continue;
                     }
-                    student.Age = age;
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
-                }
-            }
-        }
 
-        static void ReadValidGrade(Student student)
-        {
-            while (true)
-            {
-                try
+                    try
+                    {
+                        student.Age = age;
+                        break;
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        Console.WriteLine($"Грешка: {ex.Message}");
+                    }
+                }
+
+                
+                while (true)
                 {
-                    Console.Write("Въведете клас (1-12): ");
+                    Console.Write("Клас: ");
                     if (!int.TryParse(Console.ReadLine(), out int grade))
                     {
-                        throw new FormatException("Невалиден формат за цяло число.");
+                        Console.WriteLine("Моля, въведете цяло число.");
+                        continue;
                     }
-                    student.Grade = grade;
-                    break;
+
+                    try
+                    {
+                        student.Grade = grade;
+                        break;
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        Console.WriteLine($"Грешка: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
+
+               
+                while (true)
                 {
-                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
+                    Console.Write("Среден успех (например 4.49): ");
+                    if (!double.TryParse(Console.ReadLine(), NumberStyles.Float, CultureInfo.InvariantCulture, out double score))
+                    {
+                        Console.WriteLine("Невалиден формат на успеха.");
+                        continue;
+                    }
+
+                    try
+                    {
+                        student.AverageScore = score;
+                        break;
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        Console.WriteLine($"Грешка: {ex.Message}");
+                    }
                 }
+
+                
+                while (true)
+                {
+                    Console.Write("Такса (например 225.50): ");
+                    if (!decimal.TryParse(Console.ReadLine(), NumberStyles.Number, CultureInfo.InvariantCulture, out decimal fee))
+                    {
+                        Console.WriteLine("Невалиден формат на таксата.");
+                        continue;
+                    }
+
+                    try
+                    {
+                        student.Fee = fee;
+                        break;
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        Console.WriteLine($"Грешка: {ex.Message}");
+                    }
+                }
+
+               
+                while (true)
+                {
+                    Console.Write("Паралелка: ");
+                    if (!char.TryParse(Console.ReadLine(), out char letter))
+                    {
+                        Console.WriteLine("Въведете само една буква.");
+                        continue;
+                    }
+
+                    try
+                    {
+                        student.ClassLetter = letter;
+                        break;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine($"Грешка: {ex.Message}");
+                    }
+                }
+
+                
+                while (true)
+                {
+                    Console.Write("Дата на раждане (дд.ММ.гггг): ");
+                    if (!DateTime.TryParseExact(Console.ReadLine(), "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                    {
+                        Console.WriteLine("Невалиден формат. Например: 08.02.2007");
+                        continue;
+                    }
+
+                    try
+                    {
+                        student.BirthDate = date;
+                        break;
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        Console.WriteLine($"Грешка: {ex.Message}");
+                    }
+                }
+
+                
+                students.Add(student);
+                nextId++;
+
+                Console.WriteLine("\nУченикът е записан успешно в списъка!\n");
+
+                Console.Write("Желаете ли да добавите още един ученик? (да/не): ");
+                string answer = Console.ReadLine()?.Trim().ToLower();
+                if (answer != "да" && answer != "da" && answer != "true")
+                {
+                    running = false;
+                }
+                Console.WriteLine();
+            }
+
+            
+            Console.WriteLine("=== СПИСЪК С ВСИЧКИ РЕГИСТРИРАНИ УЧЕНИЦИ ===");
+            foreach (var s in students)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Id: {s.Id} | Име: {s.Name} | Възраст: {s.Age} | Клас: {s.Grade}-{s.ClassLetter} | Успех: {s.AverageScore:F2} | Такса: {s.Fee:F2} лв. | Стипендия: {(s.HasScholarship ? "Да" : "Не")} | Рожден ден: {s.BirthDate:dd.MM.yyyy}");
             }
         }
 
-        static void ReadValidAverageScore(Student student)
-        {
-            while (true)
-            {
-                try
-                {
-                    Console.Write("Въведете среден успех: ");
-                    if (!double.TryParse(Console.ReadLine(), out double score))
-                    {
-                        throw new FormatException("Невалиден формат за число.");
-                    }
-                    student.AverageScore = score;
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
-                }
-            }
-        }
 
-        static void ReadValidFee(Student student)
-        {
-            while (true)
-            {
-                try
-                {
-                    Console.Write("Въведете такса: ");
-                    if (!decimal.TryParse(Console.ReadLine(), out decimal fee))
-                    {
-                        throw new FormatException("Невалиден формат за число.");
-                    }
-                    student.Fee = fee;
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
-                }
-            }
-        }
-
-        static void ReadValidHasScholarship(Student student)
-        {
-            while (true)
-            {
-                try
-                {
-                    Console.Write("Получава ли стипендия (да/не): ");
-                    string input = Console.ReadLine().Trim().ToLower();
-                    if (input == "да" || input == "true" || input == "1")
-                    {
-                        student.HasScholarship = true;
-                    }
-                    else if (input == "не" || input == "false" || input == "0")
-                    {
-                        student.HasScholarship = false;
-                    }
-                    else
-                    {
-                        throw new FormatException("Моля, въведете 'да' или 'не'.");
-                    }
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
-                }
-            }
-        }
-
-        static void ReadValidClassLetter(Student student)
-        {
-            while (true)
-            {
-                try
-                {
-                    Console.Write("Въведете паралелка (буква): ");
-                    string input = Console.ReadLine();
-                    if (string.IsNullOrEmpty(input) || input.Length != 1)
-                    {
-                        throw new ArgumentException("Паралелката трябва да бъде точно един символ.");
-                    }
-                    student.ClassLetter = input[0];
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
-                }
-            }
-        }
-
-        static void ReadValidBirthDate(Student student)
-        {
-            while (true)
-            {
-                try
-                {
-                    Console.Write("Въведете дата на раждане (напр. 14.05.2009): ");
-                    if (!DateTime.TryParse(Console.ReadLine(), out DateTime birthDate))
-                    {
-                        throw new FormatException("Невалиден формат за дата.");
-                    }
-                    student.BirthDate = birthDate;
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Грешка: {ex.Message} Опитайте отново.");
-                }
-            }
-        }
     }
 }
-
+   
 
     
