@@ -195,6 +195,15 @@ namespace StudentSchool
                     Console.WriteLine($"Дата на раждане: {s.BirthDate:dd.MM.yyyy}");
                 }
 
+                Console.WriteLine();
+                Console.Write("Желаете ли да добавите още един ученик? (да/не): ");
+                string answer = Console.ReadLine()?.Trim().ToLower();
+                if (answer != "да" && answer != "da" && answer != "true")
+                {
+                    running = false;
+                }
+                Console.WriteLine();
+
             }
 
             
