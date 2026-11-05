@@ -10,8 +10,8 @@ namespace упражнение
 {
     internal class Program
     {
-        
-        static TodoService service=new TodoService();
+        static TodoStorage storage=new TodoStorage();
+        static TodoService service=new TodoService(storage);
 
 
         static void Main(string[] args)

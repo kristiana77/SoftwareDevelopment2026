@@ -12,5 +12,11 @@ namespace упражнение
         public int NextId { get; set; } = 1;
         private readonly static List<TodoItem> todos = new List<TodoItem>();
         private int nextId = 1;
+
+        public TodoStorage() 
+        { 
+        
+        
+        }
     }
 }
