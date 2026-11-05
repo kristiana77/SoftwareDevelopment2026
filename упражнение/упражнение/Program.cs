@@ -11,11 +11,15 @@ namespace упражнение
     internal class Program
     {
         
+        static TodoService service=new TodoService();
+
 
         static void Main(string[] args)
         {
+            
             while (true)
             {
+                
                 Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine("======= TODO MANAGER ========");
@@ -32,10 +36,10 @@ namespace упражнение
                 {
                     switch (choice)
                     {
-                        case "1": { AddTodo(); break; }
-                        case "2": { ListAllTodos(); break; }
-                        case "3": { CompleteTodo(); break; }
-                        case "4": { DeleteTodo(); break; }
+                        case "1": { AddTodo(service); break; }
+                        case "2": { ListAllTodos(service); break; }
+                        case "3": { CompleteTodo(service); break; }
+                        case "4": { DeleteTodo(service); break; }
                         case "x": { Console.WriteLine("Край на програмата"); Console.ReadLine(); return; }
                         default: { Console.WriteLine("Невалиден избор."); break; }
                     }
@@ -57,12 +61,12 @@ namespace упражнение
             }
         }
 
-        private static void DeleteTodo()
+        private static void DeleteTodo(TodoService service)
         {
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("=====  Изтрий задача =======\n");
-            ListAllTodos();
+            ListAllTodos(service);
 
             Console.Write("Избери Id: ");
             int id;
@@ -72,19 +76,17 @@ namespace упражнение
                 Console.Write("Избери Id: ");
             }
 
-            //TodoItem deleteTask = FindById(id);
-
-            //todos.Remove(deleteTask);
+            service.Delete(id);
             Console.WriteLine("Задачата е изтрита.");
 
         }
 
-        private static void CompleteTodo()
+        private static void CompleteTodo(TodoService service)
         {
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("=====  Маркирай задача като завършена =======\n");
-            ListAllTodos();
+            ListAllTodos(service);
 
             Console.Write("Избери Id: ");
             int id;
@@ -94,19 +96,20 @@ namespace упражнение
                 Console.Write("Избери Id: ");
             }
 
-            //TodoItem completedTask = FindById(id);
-            //completedTask.Completed();
+            service.Completed(id);
             Console.WriteLine("Задачата е завършена.");
 
 
         }
 
-        private static void ListAllTodos()
+        private static void ListAllTodos(TodoService service)
         {
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("===== Всички задачи  =======");
 
+
+            var todos=service.GetAll();
             if (todos.Count == 0)
             {
                 Console.WriteLine("Няма въведени задачи");
@@ -121,7 +124,7 @@ namespace упражнение
         }
 
 
-        private static void AddTodo()
+        private static void AddTodo(TodoService service)
         {
             Console.Clear();
             Console.WriteLine();
@@ -141,6 +144,7 @@ namespace упражнение
                 Console.Write("Краен срок: ");
             }
 
+            service.Add(title,description,dueDate);
             Console.WriteLine("Задачата е добавена.");
 
         }
