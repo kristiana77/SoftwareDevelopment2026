@@ -10,10 +10,12 @@ namespace упражнение
     internal class TodoService
     {
         private readonly TodoStorage storage;
+        private readonly FileStorage fileStorage;
 
-        public TodoService(TodoStorage storage)
+        public TodoService(FileStorage file)
         {
-            this.storage = storage;
+            this.storage = fileStorage.Load();
+            fileStorage = file;
         }
 
         public IReadOnlyList<TodoItem> GetAll()
@@ -45,6 +47,8 @@ namespace упражнение
             }
             todo.Completed();
 
+            fileStorage.Save(storage);
+
         }
 
 
@@ -53,6 +57,8 @@ namespace упражнение
             TodoItem todoItem = new TodoItem(storage.NextId, title, description, dueDate);
             storage.Todos.Add(todoItem);
             storage.NextId++;
+
+            fileStorage.Save(storage);
             
         }
 
@@ -65,6 +71,8 @@ namespace упражнение
                 throw new ArgumentException("Няма задача с такова ID.");
             }
             storage.Todos.Remove(todo);
+
+            fileStorage.Save(storage);
         }
 
     }

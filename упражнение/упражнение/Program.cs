@@ -10,13 +10,15 @@ namespace упражнение
 {
     internal class Program
     {
-        static TodoStorage storage=new TodoStorage();
-        static TodoService service=new TodoService(storage);
+        //static TodoStorage storage=new TodoStorage();
 
 
         static void Main(string[] args)
         {
-            
+            FileStorage fileStorage = new FileStorage("todos.json");
+            TodoService service = new TodoService(fileStorage);
+
+
             while (true)
             {
                 
